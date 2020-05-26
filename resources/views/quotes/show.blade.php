@@ -46,6 +46,23 @@
     </div>
     @endif
 
+    <form class="mb-3" action="/quotes-comment/{{$quote->id}}" method="post">
+        {{csrf_field()}}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <textarea name="subject" rows="1" cols="80" class="form-control"
+                        placeholder="Isi Komentar...">{{old('subject')}}</textarea>
+                </div>
+            </div>
+            <div class="col-md">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Submit Komentar
+                </button>
+            </div>
+        </div>
+    </form>
+
 
     @foreach($quote->comments as $comment)
     <div class="row">
@@ -60,11 +77,12 @@
 
         @if($comment->isOwner())
         <div class="col-md-4">
-            <a href="/quotes-comme</div>nt/{{$comment->id}}/edit" class="btn btn-warning"> Edit </a>
+            <a href="/quotes-comment/{{$comment->id}}/edit"> <i class="fas fa-edit"></i> </a>
             <form action="/quotes-comment/{{$comment->id}}" method="post" class="d-inline">
                 {{csrf_field()}}
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" style="border: none; background-color: transparent;"> <i
+                        class="fas fa-trash-alt"></i></button>
             </form>
         </div>
         @endif
@@ -78,17 +96,7 @@
 
 
 
-    <form class="" action="/quotes-comment/{{$quote->id}}" method="post">
-        {{csrf_field()}}
-        <div class="form-group">
-            <label for="subject">Isi Komentar</label>
-            <textarea name="subject" rows="8" cols="80" class="form-control">{{old('subject')}}</textarea>
-        </div>
 
-        <button type="submit" class="btn btn-primary btn-block">
-            Submit Komentar
-        </button>
-    </form>
 
 
 </div>

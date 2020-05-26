@@ -10,11 +10,7 @@
     </div>
 
     @endif
-    Filter tag:
-    @foreach($tags as $tag)
-    <a href="/quotes/filter/{{$tag->name}}">/ {{$tag->name}}</a>
-    @endforeach
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-4">
             <form class="form-inline" action="/quotes" method="get">
                 <div class="form-group mx-sm-3 mb-2">
@@ -31,25 +27,59 @@
 
         </div>
 
-    </div>
+    </div> --}}
+
+    <!-- Search Box -->
     <div class="row">
-        @foreach($quotes as $quote)
+        <div class="col-md-6 col-8">
+            <form action="/quotes" method="get">
+                <div class="row">
+                    <div class="col-md-10 col-10">
+                        <input class="form-control" type="text" placeholder="Cari Quotes" name="search">
+                    </div>
+                    <div class="col-md-2 col-2">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 col-4">
+            <a href="{{url('/quotes/create')}}" class="btn btn-success text-white btn-tambah">Tambah Kutipan</a>
+        </div>
+    </div>
+    <!-- akhir Search Box -->
+    <div class="row mt-4">
         <div class="col-md-3 mb-3">
             <div class="card">
-                <div class="card-header">
-                    {{$quote->title}}
-                </div>
                 <div class="card-body">
-                    <p> Tag :
-                        @foreach($quote->tags as $tag)
-                        {{$tag->name}},
+                    Kategori
+                    <hr class="mt-3">
+                    <ul class="list-group list-group-flush list-kategori">
+                        @foreach($tags as $tag)
+                        <li class="list-group-item"> <a href="/quotes/filter/{{$tag->name}}"> {{$tag->name}}</a></li>
                         @endforeach
-                    </p>
-                    <a href="quotes/{{$quote->slug}}" class="btn btn-primary">Lihat Kutipan</a>
+                    </ul>
                 </div>
             </div>
         </div>
-        @endforeach
+
+        <div class="col">
+            @foreach($quotes as $quote)
+            <a href="{{url('quotes/'. $quote->slug)}}" style="text-decoration: none;" class="body-kutipan">
+                <div class="card rounded-0 border-0 card-kutipan mb-4">
+                    <div class="card-body ">
+                        <p>{{$quote->title}}</p>
+                        <small class="text-muted">{{$quote->created_at}}</small><br>
+                        <small class="text-muted">
+                            Tag : @foreach($quote->tags as $tag)
+                            {{$tag->name}},
+                            @endforeach
+                        </small>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+            {{ $quotes->links() }}
+        </div>
     </div>
-</div>
-@endsection
+    @endsection

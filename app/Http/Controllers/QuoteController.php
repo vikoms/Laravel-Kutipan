@@ -23,9 +23,10 @@ class QuoteController extends Controller
         $search_q = urlencode($request->input("search"));
         $data['tags'] = Tag::all();
         if(!empty($search_q)) {
-            $data['quotes'] = Quote::with('tags')->where('title','like','%' . $search_q .'%')->get();
+            $data['quotes'] = Quote::with('tags')->where('title','like','%' . $search_q
+            .'%')->orderBy('id','desc')->paginate(10);
         } else {
-            $data['quotes'] = Quote::with('tags')->get();
+            $data['quotes'] = Quote::with('tags')->orderBy('id','desc')->paginate(10);
         }
 
         return view('quotes.index',$data);
@@ -36,7 +37,7 @@ class QuoteController extends Controller
         $tags = Tag::all();
          $quotes = Quote::with('tags')->whereHas('tags',function($query) use($tag) {
              $query->where('name',$tag);
-         })->get();
+         })->paginate(10);
         
 
          return view('quotes.index',compact('tags','quotes'));
@@ -78,6 +79,7 @@ class QuoteController extends Controller
         if(Quote::where('slug',$slug)->first() != null) {
             $slug = $slug . '-' . time();
         }
+
 
        
 
