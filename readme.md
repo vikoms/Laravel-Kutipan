@@ -1,13 +1,13 @@
 # Laraquotes
-Laraquotes adalah sebuah website untuk saling berbagi kutipan
+Laraquotes adalah sebuah website untuk saling berbagi quote
 
 # Fitur
-* CRUD (create,update,delete) Kutipan
-* Like Kutipan
-* Comment Kutipan
+* CRUD (create,update,delete) Quote
+* Like Quote
+* Comment Quote
 * Like Comment
 * Notifikasi 
-* Filter Kutipan (per kategori)
+* Filter Quote (per kategori)
 
 # Dibuat Menggunakan
 * Laravel 6.0
